@@ -99,11 +99,6 @@ section {
   background: var(--paper);
 }
 
-.section-ink {
-  color: var(--paper-strong);
-  background: #182025;
-}
-
 .section-inner {
   width: min(var(--max), calc(100% - 40px));
   margin: 0 auto;
@@ -121,8 +116,7 @@ section {
 }
 
 .hero-bg,
-.motion-grid,
-.hero-wipe {
+.motion-grid {
   position: absolute;
   inset: 0;
 }
@@ -193,61 +187,6 @@ section {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.72);
-}
-
-/* 取り扱いキーワードのストリップ（要件整理 / 進行管理 / 運用改善）。 */
-.hero-keywords {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: clamp(22px, 3vw, 32px) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.hero-keywords li {
-  font-family: Inter, "Noto Sans JP", sans-serif;
-  font-size: clamp(13px, 1.1vw, 15px);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.82);
-}
-
-.hero-keywords li:not(:last-child)::after {
-  content: "/";
-  margin: 0 clamp(12px, 1.6vw, 20px);
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.hero-wipe {
-  display: none;
-  z-index: 5;
-  pointer-events: none;
-  background: var(--paper);
-  clip-path: polygon(0 128%, 100% 108%, 100% 132%, 0 152%);
-  transform: translateY(18%) rotate(-2deg) scale(1.08);
-  transform-origin: 50% 100%;
-  will-change: clip-path, transform;
-}
-
-.hero-wipe::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(112deg, transparent 0 45.7%, rgba(16, 20, 24, 0.22) 45.8% 46.2%, transparent 46.3% 100%),
-    linear-gradient(112deg, transparent 0 48.2%, rgba(244, 2, 11, 0.92) 48.3% 49.2%, transparent 49.3% 100%);
-  opacity: 0.82;
-}
-
-.hero-wipe::after {
-  content: "";
-  position: absolute;
-  inset: -8% -4% auto -4%;
-  height: 18%;
-  background: linear-gradient(to bottom, rgba(16, 20, 24, 0.28), transparent);
-  transform: rotate(-7deg);
-  transform-origin: center;
 }
 
 .hero-foreground {
@@ -372,28 +311,11 @@ section {
   display: none;
 }
 
-.char {
-  display: inline-block;
-  will-change: transform, opacity;
-}
-
-.mobile-title-break {
-  display: none;
-}
-
 .hero-lead {
   width: min(760px, 100%);
   margin: clamp(18px, 3vw, 30px) 0 0;
   font-size: clamp(17px, 2vw, 24px);
   font-weight: 500;
-}
-
-.desktop-lead {
-  display: inline;
-}
-
-.mobile-lead {
-  display: none;
 }
 
 .hero-name {
@@ -506,13 +428,6 @@ section {
   letter-spacing: 0;
 }
 
-.copy-stack {
-  display: grid;
-  gap: 22px;
-  font-size: clamp(16px, 1.5vw, 19px);
-}
-
-.copy-stack p,
 .contact-inner p {
   margin: 0;
 }
@@ -558,55 +473,6 @@ section {
   height: 6px;
   border-radius: 50%;
   background: var(--accent);
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--line-dark);
-  border-bottom: 1px solid var(--line-dark);
-}
-
-.stat-item {
-  min-height: 230px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 18px;
-  padding: clamp(24px, 4vw, 48px);
-  border-right: 1px solid var(--line-dark);
-}
-
-.stat-item:last-child {
-  border-right: 0;
-}
-
-.stat-kicker {
-  color: var(--accent-3);
-  font-family: Inter, "Noto Sans JP", sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-.stat-word {
-  margin: 0;
-  color: var(--accent-3);
-  font-family: Inter, "Noto Sans JP", sans-serif;
-  font-size: clamp(38px, 5.6vw, 72px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0;
-}
-
-.stat-label {
-  max-width: 300px;
-  color: rgba(255, 255, 255, 0.78);
-  margin: 0;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.8;
 }
 
 .horizontal-section {
@@ -743,95 +609,6 @@ section {
   color: var(--ink-soft);
 }
 
-.scrub-layout {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr);
-  gap: clamp(40px, 8vw, 120px);
-  align-items: center;
-  min-height: 86svh;
-}
-
-.scrub-visual {
-  position: relative;
-  min-height: 420px;
-  border-left: 1px solid var(--line-dark);
-}
-
-.process-list {
-  display: grid;
-  gap: 14px;
-  margin: clamp(28px, 4vw, 42px) 0 0;
-  padding: 0;
-  list-style: none;
-  color: rgba(255, 255, 255, 0.78);
-}
-
-.process-list li {
-  position: relative;
-  padding-left: 28px;
-}
-
-.process-list li::before {
-  content: "";
-  position: absolute;
-  top: 0.78em;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent-3);
-}
-
-.scrub-line {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  transform-origin: left center;
-  transform: scaleX(0.12);
-  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
-  will-change: transform;
-}
-
-.scrub-node,
-.scrub-cursor {
-  position: absolute;
-  top: 50%;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.scrub-node {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  background: #182025;
-}
-
-.node-a {
-  left: 18%;
-}
-
-.node-b {
-  left: 52%;
-}
-
-.node-c {
-  left: 84%;
-}
-
-.scrub-cursor {
-  left: 8%;
-  width: clamp(86px, 11vw, 150px);
-  height: clamp(86px, 11vw, 150px);
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  background:
-    linear-gradient(135deg, rgba(244, 2, 11, 0.9), rgba(47, 140, 122, 0.84));
-  mix-blend-mode: screen;
-  will-change: transform;
-}
-
 .contact-inner {
   display: grid;
   gap: 26px;
@@ -953,10 +730,6 @@ section {
     display: block;
   }
 
-  .mobile-title-break {
-    display: block;
-  }
-
   /* コピーは2行程度に収め、すぐ写真へ。 */
   .hero-lead {
     width: 100%;
@@ -967,14 +740,6 @@ section {
     white-space: normal;
     overflow-wrap: anywhere;
     word-break: normal;
-  }
-
-  .desktop-lead {
-    display: none;
-  }
-
-  .mobile-lead {
-    display: inline;
   }
 
   .hero-name {
@@ -1030,33 +795,12 @@ section {
     background-size: 72px 72px;
   }
 
-  .hero-wipe::before {
-    background:
-      linear-gradient(108deg, transparent 0 43.6%, rgba(16, 20, 24, 0.2) 43.7% 44.1%, transparent 44.2% 100%),
-      linear-gradient(108deg, transparent 0 46%, rgba(244, 2, 11, 0.78) 46.1% 47.4%, transparent 47.5% 100%);
-  }
-
-  .two-column,
-  .scrub-layout {
+  .two-column {
     grid-template-columns: 1fr;
   }
 
   .profile-intro {
     position: static;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stat-item {
-    min-height: 180px;
-    border-right: 0;
-    border-bottom: 1px solid var(--line-dark);
-  }
-
-  .stat-item:last-child {
-    border-bottom: 0;
   }
 
   .pin-wrap {
@@ -1089,10 +833,6 @@ section {
 
   .service-row p {
     grid-column: 2;
-  }
-
-  .scrub-visual {
-    min-height: 280px;
   }
 }
 
