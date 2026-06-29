@@ -1,0 +1,10 @@
+# OS / editor
+.DS_Store
+**/.DS_Store
+.vscode/
+
+# 内部メモ（公開しない）
+依頼内容.md
+構成.md
+レビュー.md
+ベネフィット基準コピー案.md
