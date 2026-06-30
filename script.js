@@ -44,7 +44,7 @@ function initHero() {
 function initMarquee() {
   const COPIES = 6; // 偶数。-50% ループの継ぎ目が出ないよう同一語を等間隔で並べる。
   // 流れる速さ＝「1秒あたり画面幅の何割動くか」。1つの値でPC/SPとも体感速度が揃う（小さいほど遅い）。
-  const SPEED_VW_PER_SEC = 0.16;
+  const SPEED_VW_PER_SEC = 0.1;
 
   const tracks = [];
   document.querySelectorAll(".hero-bgword, .curtain-bgword").forEach((wrap) => {
@@ -89,8 +89,34 @@ function initScrollAnimations() {
   const mm = gsap.matchMedia();
 
   // カーテン演出: 対応業務をピンで固定したまま黒幕を上へめくる。スマホは尺を短く。
+  // 各行は、幕が画面中央を過ぎたあたり（めくり進捗 REVEAL_AT）で、スクロール速度に依存しない
+  // 時間ベースのアニメーションでワッと出す。
+  const REVEAL_AT = 0.55; // 0〜1。大きいほど（幕が上がってから）遅く出る。
   const makeCurtain = (endPct) => () => {
     if (!document.querySelector(".curtain-transition") || !document.querySelector(".hero-curtain")) return;
+
+    const rows = gsap.utils.toArray(".service-row");
+    if (rows.length) {
+      gsap.set(rows, {
+        opacity: 0,
+        x: (i) => (isMobile ? 0 : i % 2 === 0 ? -64 : 64),
+        y: isMobile ? 28 : 0,
+      });
+    }
+    let revealed = false;
+    const revealRows = () => {
+      if (revealed || !rows.length) return;
+      revealed = true;
+      gsap.to(rows, {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+      });
+    };
+
     gsap.to(".hero-curtain", {
       yPercent: -106,
       ease: "none",
@@ -103,6 +129,13 @@ function initScrollAnimations() {
         pin: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          if (self.progress >= REVEAL_AT) revealRows();
+        },
+        // 既にめくり位置を過ぎた状態で読み込まれた場合の保険。
+        onRefresh: (self) => {
+          if (self.progress >= REVEAL_AT) revealRows();
+        },
       },
     });
   };
