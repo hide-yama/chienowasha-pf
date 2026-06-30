@@ -177,24 +177,14 @@ section {
   -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.13);
 }
 
-/* 指標メタ行: インデックス番号＋ラベル＋点線の罫線。 */
+/* 指標メタ行: ラベル＋点線の罫線。 */
 .hero-meta {
   display: flex;
   align-items: center;
-  gap: 14px;
   max-width: 660px;
   margin: 0 0 clamp(20px, 3vw, 30px);
   padding-bottom: 14px;
   border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
-}
-
-.hero-index {
-  flex: none;
-  font-family: Inter, "Noto Sans JP", sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: var(--accent);
 }
 
 .hero-meta-label {
