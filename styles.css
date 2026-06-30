@@ -129,35 +129,52 @@ section {
   mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 78%, transparent 100%);
 }
 
-/* KV: エディトリアル・タイポ＋指標。巨大な薄字のバックワードを背景に置く。 */
+/* KV: エディトリアル・タイポ＋指標。巨大な薄字のバックワードを右→左へ流す（マーキー）。 */
 .hero-bgword,
 .curtain-bgword {
   position: absolute;
   z-index: 1;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-bgword {
+  top: clamp(3%, 5vw, 9%);
+}
+
+.curtain-bgword {
+  top: 15%;
+}
+
+.bgword-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.bgword-track span {
+  flex: none;
   margin: 0;
+  padding-right: 0.28em;
   font-family: Inter, "Noto Sans JP", sans-serif;
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: -0.02em;
   white-space: nowrap;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
-  pointer-events: none;
-  user-select: none;
-  will-change: transform;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.16);
 }
 
-.hero-bgword {
-  top: clamp(3%, 5vw, 9%);
-  left: -2%;
+.hero-bgword .bgword-track span {
   font-size: clamp(110px, 23vw, 360px);
 }
 
-.curtain-bgword {
-  top: 15%;
-  left: -2%;
+.curtain-bgword .bgword-track span {
   font-size: clamp(100px, 21vw, 320px);
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.13);
 }
 
 /* 指標メタ行: インデックス番号＋ラベル＋点線の罫線。 */
@@ -803,16 +820,22 @@ section {
     position: static;
   }
 
+  /* コピーをスマホで全幅に（30ch 制限を解除）。 */
+  .profile-lead {
+    max-width: 100%;
+  }
+
   .pin-wrap {
     min-height: auto;
     align-items: stretch;
     padding: clamp(90px, 12vw, 150px) clamp(20px, 5vw, 72px);
   }
 
+  /* 参画実績の見出しが左端に張り付かないよう、本文と同じ左右余白を付ける。 */
   .section-kicker {
-    width: min(var(--max), 100%);
-    margin: 0 auto;
-    padding: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0 20px;
   }
 
   .horizontal-track {

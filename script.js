@@ -38,7 +38,50 @@ function initHero() {
   gsap.to(".motion-grid", { yPercent: 18, ease: "none", scrollTrigger: { ...HERO_SCRUB } });
   gsap.to(".hero-foreground", { yPercent: isMobile ? 8 : 12, opacity: 0.62, ease: "none", scrollTrigger: { ...HERO_SCRUB } });
   gsap.to(".hero-portrait img", { yPercent: isMobile ? 7 : 12, scale: 1.04, ease: "none", scrollTrigger: { ...HERO_SCRUB } });
-  gsap.to(".hero-bgword", { xPercent: isMobile ? -4 : -8, yPercent: 6, ease: "none", scrollTrigger: { ...HERO_SCRUB } });
+}
+
+// 背景の大きな文字を複製し、右→左へ継ぎ目なく流す（マーキー）。
+function initMarquee() {
+  const COPIES = 6; // 偶数。-50% ループの継ぎ目が出ないよう同一語を等間隔で並べる。
+  // 流れる速さ＝「1秒あたり画面幅の何割動くか」。1つの値でPC/SPとも体感速度が揃う（小さいほど遅い）。
+  const SPEED_VW_PER_SEC = 0.16;
+
+  const tracks = [];
+  document.querySelectorAll(".hero-bgword, .curtain-bgword").forEach((wrap) => {
+    const word = wrap.textContent.trim();
+    if (!word) return;
+
+    const track = document.createElement("div");
+    track.className = "bgword-track";
+    for (let i = 0; i < COPIES; i += 1) {
+      const span = document.createElement("span");
+      span.textContent = word;
+      track.appendChild(span);
+    }
+    wrap.textContent = "";
+    wrap.appendChild(track);
+    tracks.push(track);
+  });
+
+  if (prefersReducedMotion) return;
+
+  // トラックの実幅と画面幅から duration を算出し、画面幅に対する速度を一定にする。
+  // （フォントサイズが vw 連動でPC/SPで幅が変わるため、固定 duration だと速度がズレる。）
+  const play = () => {
+    tracks.forEach((track) => {
+      gsap.killTweensOf(track);
+      const halfWidth = track.scrollWidth / 2; // -50% で動く距離(px)
+      const duration = halfWidth / (SPEED_VW_PER_SEC * window.innerWidth);
+      // 同一語が等間隔なので -50%（=語3つ分）で元の並びに戻り、継ぎ目なくループする。
+      gsap.fromTo(track, { xPercent: 0 }, { xPercent: -50, duration, ease: "none", repeat: -1 });
+    });
+  };
+
+  play();
+  // Webフォント確定後は文字幅＝トラック幅が変わるため、速度を再計算する。
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(play);
+  }
 }
 
 // カーテン演出＋横スクロールは、ブレークポイント/モーション設定の変化に追従させる（gsap.matchMedia）。
@@ -191,6 +234,7 @@ function initReveals() {
 function init() {
   const lenis = initLenis();
   initHero();
+  initMarquee();
   initScrollAnimations();
   initReveals();
   initProfileParallax();
